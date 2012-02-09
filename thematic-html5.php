@@ -21,6 +21,11 @@ function thematic_html5_init() {
 	/* Load the translation of the plugin. */
 	load_plugin_textdomain( 'thm_html5', false, '/languages' );
 	
+	/* Load plugin functions */
+	require_once( plugin_dir_path( __FILE__ ) . '/html5-functions.php' );
+	
+	/* Load override functions */
+	require_once( plugin_dir_path( __FILE__ ) . '/html5-overrides.php' );
 	
 }
 
