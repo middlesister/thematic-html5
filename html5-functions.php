@@ -9,6 +9,50 @@
 
 
 /**
+ * Create the html5 doctype instead of xhtml1.
+ * 
+ * @param string $content 
+ * @since 0.1 
+ */
+function thematic_html5_create_doctype( $content ) {
+	$content = '<!DOCTYPE html>';
+	$content .= "\n";
+	$content .= '<html';
+	return $content;
+}
+add_filter('thematic_create_doctype', 'thematic_html5_create_doctype');
+
+
+/**
+ * Remove the profile attribute from the head tag and add the meta tag charset
+ *
+ * @param string $content 
+ * @return void
+ * @author Karin
+ */
+function thematic_html5_head( $content ) {
+	$content = '<head>';
+	$content .= "\n";
+	$content .= '<meta charset="' . get_bloginfo( 'charset' ) . '">';
+	$content .= "\n";
+	return $content;
+}
+add_filter('thematic_head_profile', 'thematic_html5_head');
+ 
+/**
+ * Remove the now defunct meta tag <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+ *
+ * @param string $content 
+ * @since 0.1
+ */
+function thematic_html5_remove_charset( $content ) {
+	$content = '';
+	return $content;
+}
+add_filter('thematic_create_contenttype', 'thematic_html5_remove_charset');
+
+
+/**
  * Filter the main menu to use the nav element
  *
  * @since 0.1
