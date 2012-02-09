@@ -87,8 +87,10 @@ function thematic_html5_loopchange() {
 	} // end archive_loop
 
 	// replace the default loop
-	remove_action('thematic_archiveloop', 'thematic_archive_loop');
-	add_action('thematic_archiveloop','thematic_html5_archive_loop');
+	if ( current_theme_supports( 'thematic-html5' ) ) {
+		remove_action('thematic_archiveloop', 'thematic_archive_loop');
+		add_action('thematic_archiveloop','thematic_html5_archive_loop');
+	}
 
 
 	if (function_exists('childtheme_override_author_loop'))  {
@@ -149,8 +151,10 @@ function thematic_html5_loopchange() {
 	} // end author_loop
 
 	// replace the author loop
-	remove_action('thematic_authorloop', 'thematic_author_loop');
-	add_action('thematic_authorloop','thematic_html5_author_loop');
+	if ( current_theme_supports( 'thematic-html5' ) ) {
+		remove_action('thematic_authorloop', 'thematic_author_loop');
+		add_action('thematic_authorloop','thematic_html5_author_loop');
+	}
 
 
 	if (function_exists('childtheme_override_category_loop'))  {
@@ -210,9 +214,11 @@ function thematic_html5_loopchange() {
 	} // end category_loop
 
 	// replace the category loop
-	remove_action('thematic_categoryloop', 'thematic_category_loop');
-	add_action('thematic_categoryloop','thematic_html5_category_loop');
-
+	if ( current_theme_supports( 'thematic-html5' ) ) {
+		remove_action('thematic_categoryloop', 'thematic_category_loop');
+		add_action('thematic_categoryloop','thematic_html5_category_loop');
+	}
+	
 
 	if (function_exists('childtheme_override_index_loop'))  {
 		/**
@@ -282,9 +288,11 @@ function thematic_html5_loopchange() {
 	} // end index_loop
 
 	// replace the index loop
-	remove_action('thematic_indexloop', 'thematic_index_loop');
-	add_action('thematic_indexloop','thematic_html5_index_loop');
-
+	if ( current_theme_supports( 'thematic-html5' ) ) {
+		remove_action('thematic_indexloop', 'thematic_index_loop');
+		add_action('thematic_indexloop','thematic_html5_index_loop');
+	}
+	
 
 	if (function_exists('childtheme_override_single_post'))  {
 		/**
@@ -341,8 +349,10 @@ function thematic_html5_loopchange() {
 	} // end single_post
 
 	// replace the single post loop
-	remove_action('thematic_singlepost', 'thematic_single_post');
-	add_action('thematic_singlepost','thematic_html5_single_post');
+	if ( current_theme_supports( 'thematic-html5' ) ) {
+		remove_action('thematic_singlepost', 'thematic_single_post');
+		add_action('thematic_singlepost','thematic_html5_single_post');
+	}
 
 
 	if (function_exists('childtheme_override_search_loop'))  {
@@ -402,9 +412,11 @@ function thematic_html5_loopchange() {
 	} // end search_loop
 
 	// replace the search loop
-	remove_action('thematic_searchloop', 'thematic_search_loop');
-	add_action('thematic_searchloop','thematic_html5_search_loop');
-
+	if ( current_theme_supports( 'thematic-html5' ) ) {
+		remove_action('thematic_searchloop', 'thematic_search_loop');
+		add_action('thematic_searchloop','thematic_html5_search_loop');
+	}
+	
 
 	if (function_exists('childtheme_override_tag_loop'))  {
 		/**
@@ -463,9 +475,12 @@ function thematic_html5_loopchange() {
 	} // end tag_loop
 
 	// replace the tag loop
-	remove_action('thematic_tagloop', 'thematic_tag_loop');
-	add_action('thematic_tagloop','thematic_html5_tag_loop');
-}
+	if ( current_theme_supports( 'thematic-html5' ) ) {
+		remove_action('thematic_tagloop', 'thematic_tag_loop');
+		add_action('thematic_tagloop','thematic_html5_tag_loop');
+	}
+} // end thematic_html5_loopchange
+
 add_action('after_setup_theme','thematic_html5_loopchange',40);
 
 
@@ -521,9 +536,10 @@ function thematic_html5_navchange() {
 	} // end nav_above
 	
 	// replace the above navigation
-	remove_action('thematic_navigation_above', 'thematic_nav_above', 2);
-	add_action('thematic_navigation_abocve','thematic_html5_nav_above');
-	
+	if ( current_theme_supports( 'thematic-html5' ) ) {
+		remove_action('thematic_navigation_above', 'thematic_nav_above', 2);
+		add_action('thematic_navigation_abocve','thematic_html5_nav_above');
+	}
 	
 	if (function_exists('childtheme_override_nav_below'))  {
 		/**
@@ -568,9 +584,12 @@ function thematic_html5_navchange() {
 	} // end nav_below
 
 	// replace the navigation below
-	remove_action('thematic_navigation_below', 'thematic_nav_below', 2);
-	add_action('thematic_navigation_below','thematic_html5_nav_below',10,1);
+	if ( current_theme_supports( 'thematic-html5' ) ) {
+		remove_action('thematic_navigation_below', 'thematic_nav_below', 2);
+		add_action('thematic_navigation_below','thematic_html5_nav_below',10,1);
+	}
 	
-}
+} // end thematic_html5_navchange
+
 add_action('after_setup_theme','thematic_html5_navchange',40);
 ?>
