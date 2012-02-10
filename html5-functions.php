@@ -118,6 +118,64 @@ function thematic_html5_pagemenu( $menu ) {
 
 
 /**
+ * Change the post header and footer to use header and footer element, respectively
+ *
+ * @since 0.1
+ **/
+function thematic_html5_postchange() {
+	
+	/**
+	 * Filter the post header, wrapping title and post meta in header tags
+	 *
+	 * @since 0.1
+	 **/
+	function thematic_html5_postheader( $content ) {
+		$content = '<header class="entry-header">' . $content;
+		$content .= '</header>';
+		return $content;
+	}
+	// add the footer filter if a child theme is not overriding it already
+	if ( current_theme_supports( 'thematic-html5' ) && !function_exists( 'childtheme_override_postheader' ) ) {
+		add_action('thematic_postheader','thematic_html5_postheader');
+	}
+	
+	
+	/**
+	 * Filter the post header's post title
+	 *
+	 * @since 0.1
+	 **/
+	function thematic_html5_postheader_posttitle( $content ) {
+		$content = str_replace( 'h2', 'h1', $content);
+		return $content;
+	}
+	// add the footer filter if a child theme is not overriding it already
+	if ( current_theme_supports( 'thematic-html5' ) && !function_exists( 'childtheme_override_postheader_posttitle' ) ) {
+		add_action('thematic_postheader_posttitle','thematic_html5_postheader_posttitle');
+	}
+	
+	
+	/**
+	 * Filter the post footer
+	 *
+	 * @since 0.1
+	 **/
+	function thematic_html5_postfooter( $content ) {
+		$content = str_replace( '<div class="entry-utility">', '<footer class="entry-utility">', $content);
+		$content = str_replace( '</div><!-- .entry-utility -->', '</footer><!-- .entry-utility -->', $content );
+		return $content;
+	}
+	// add the footer filter if a child theme is not overriding it already
+	if ( current_theme_supports( 'thematic-html5' ) && !function_exists( 'childtheme_override_postfooter' ) ) {
+		add_action('thematic_postfooter','thematic_html5_postfooter');
+	}
+	
+	
+}
+add_action('after_setup_theme','thematic_html5_postchange',40);
+
+
+/**
  * Filter the opening tags of the widget areas
  * 
  * Replace the div with aside, remove the wrapping ul
