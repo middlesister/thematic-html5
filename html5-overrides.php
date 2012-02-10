@@ -526,7 +526,7 @@ function thematic_html5_navchange() {
 	// replace the above navigation
 	if ( current_theme_supports( 'thematic-html5' ) ) {
 		remove_action('thematic_navigation_above', 'thematic_nav_above', 2);
-		add_action('thematic_navigation_abocve','thematic_html5_nav_above');
+		add_action('thematic_navigation_above','thematic_html5_nav_above', 2);
 	}
 	
 	if (function_exists('childtheme_override_nav_below'))  {
@@ -574,7 +574,7 @@ function thematic_html5_navchange() {
 	// replace the navigation below
 	if ( current_theme_supports( 'thematic-html5' ) ) {
 		remove_action('thematic_navigation_below', 'thematic_nav_below', 2);
-		add_action('thematic_navigation_below','thematic_html5_nav_below',10,1);
+		add_action('thematic_navigation_below','thematic_html5_nav_below', 2);
 	}
 	
 } // end thematic_html5_navchange
