@@ -12,416 +12,245 @@
  * Change the loops.
  * 
  * Change the loops found in content-extensions.php of Thematic. This is basicaly a copy-paste
- * of the loops, wraping the posts in an article element intesad of div.
+ * of the loops, wraping the posts in an article element instead of div.
  *
  * @since 0.1
  **/
-function thematic_html5_loopchange() {
-	
-	if (function_exists('childtheme_override_archive_loop'))  {
-		/**
-		 * @ignore
-		 */
-		function thematic_html5_archive_loop() {
-			childtheme_override_archive_loop();
-		}
-	} else {
-		/**
-		 * The Archive loop
-		 * 
-		 * Located in archive.php
-		 * 
-		 * Override: childtheme_override_archive_loop
-		 */
-		function thematic_html5_archive_loop() {
-			while ( have_posts() ) : the_post(); 
-
-					// action hook for insterting content above #post
-					thematic_abovepost(); 
-					?>
-
-					<?php
-						echo '<article id="post-' . get_the_ID() . '" ';
-						// Checking for defined constant to enable Thematic's post classes
-						if ( ! ( THEMATIC_COMPATIBLE_POST_CLASS ) ) {
-						    post_class();
-						    echo '>';
-						} else {
-						    echo 'class="';
-						    thematic_post_class();
-						    echo '">';
-						}
-
-		            	// creating the post header
-		            	thematic_postheader();
-		            ?>
-
-						<div class="entry-content">
-
-							<?php thematic_content(); ?>
-
-						</div><!-- .entry-content -->
-
-						<?php thematic_postfooter(); ?>
-
-					</article><!-- #post -->
-
-				<?php 
-					// action hook for insterting content below #post
-					thematic_belowpost();
-
-			endwhile;
-		}
-	} // end archive_loop
-
-	// replace the default loop
-	if ( current_theme_supports( 'thematic-html5' ) ) {
-		remove_action('thematic_archiveloop', 'thematic_archive_loop');
-		add_action('thematic_archiveloop','thematic_html5_archive_loop');
-	}
 
 
-	if (function_exists('childtheme_override_author_loop'))  {
-		/**
-		 * @ignore
-		 */
-		function thematic_html5_author_loop() {
-			childtheme_override_author_loop();
-		}
-	} else {
-		/**
-		 * The Author loop
-		 * 
-		 * Located in author.php
-		 * 
-		 * Override: childtheme_override_author_loop
-		 */
-		function thematic_html5_author_loop() {
-			rewind_posts();
-			while ( have_posts() ) : the_post(); 
+/**
+  * The Index loop
+  * 
+  * Located in index.php
+  * 
+  * Override: childtheme_override_index_loop
+  */
 
-					// action hook for insterting content above #post
-					thematic_abovepost();
-					?>
+if(!function_exists('childtheme_override_index_loop')) {
 
-					<?php
-						echo '<article id="post-' . get_the_ID() . '" ';
-						// Checking for defined constant to enable Thematic's post classes
-						if ( ! ( THEMATIC_COMPATIBLE_POST_CLASS ) ) {
-						    post_class();
-						    echo '>';
-						} else {
-						    echo 'class="';
-						    thematic_post_class();
-						    echo '">';
-						}
+	function childtheme_override_index_loop() {
 
-		            	// creating the post header
-		            	thematic_postheader();
-		            ?>
+		// Count the number of posts so we can insert a widgetized area
+		$count = 1;
+		while ( have_posts() ) : the_post();
 
-						<div class="entry-content">
+			// action hook for insterting content above #post
+			thematic_abovepost();
+			?>
 
-							<?php thematic_content(); ?>
-
-						</div><!-- .entry-content -->
-
-						<?php thematic_postfooter(); ?>
-
-					</article><!-- #post -->
-
-				<?php 
-					// action hook for insterting content below #post
-					thematic_belowpost();
-
-			endwhile;
-		}
-	} // end author_loop
-
-	// replace the author loop
-	if ( current_theme_supports( 'thematic-html5' ) ) {
-		remove_action('thematic_authorloop', 'thematic_author_loop');
-		add_action('thematic_authorloop','thematic_html5_author_loop');
-	}
-
-
-	if (function_exists('childtheme_override_category_loop'))  {
-		/**
-		 * @ignore
-		 */
-		function thematic_html5_category_loop() {
-			childtheme_override_category_loop();
-		}
-	} else {
-		/**
-		 * The Category loop
-		 * 
-		 * Located in category.php
-		 * 
-		 * Override: childtheme_override_category_loop
-		 */
-		function thematic_html5_category_loop() {
-			while ( have_posts() ) : the_post(); 
-
-					// action hook for insterting content above #post
-					thematic_abovepost();
-					?>
-
-					<?php
-						echo '<article id="post-' . get_the_ID() . '" ';
-						// Checking for defined constant to enable Thematic's post classes
-						if ( ! ( THEMATIC_COMPATIBLE_POST_CLASS ) ) {
-						    post_class();
-						    echo '>';
-						} else {
-						    echo 'class="';
-						    thematic_post_class();
-						    echo '">';
-						}
-
-		            	// creating the post header
-		            	thematic_postheader();
-		            ?>
-
-						<div class="entry-content">
-
-							<?php thematic_content(); ?>
-
-						</div><!-- .entry-content -->
-
-						<?php thematic_postfooter(); ?>
-
-					</article><!-- #post -->
-
-				<?php 
-					// action hook for insterting content below #post
-					thematic_belowpost();
-
-			endwhile;
-		}
-	} // end category_loop
-
-	// replace the category loop
-	if ( current_theme_supports( 'thematic-html5' ) ) {
-		remove_action('thematic_categoryloop', 'thematic_category_loop');
-		add_action('thematic_categoryloop','thematic_html5_category_loop');
-	}
-	
-
-	if (function_exists('childtheme_override_index_loop'))  {
-		/**
-		 * @ignore
-		 */
-		function thematic_html5_index_loop() {
-			childtheme_override_index_loop();
-		}
-	} else {
-		/**
-		 * The Index loop
-		 * 
-		 * Located in index.php
-		 * 
-		 * Override: childtheme_override_index_loop
-		 */
-		function thematic_html5_index_loop() {
-
-			// Count the number of posts so we can insert a widgetized area
-			$count = 1;
-			while ( have_posts() ) : the_post();
-
-					// action hook for insterting content above #post
-					thematic_abovepost();
-					?>
-
-					<?php
-						echo '<article id="post-' . get_the_ID() . '" ';
-						// Checking for defined constant to enable Thematic's post classes
-						if ( ! ( THEMATIC_COMPATIBLE_POST_CLASS ) ) {
-						    post_class();
-						    echo '>';
-						} else {
-						    echo 'class="';
-						    thematic_post_class();
-						    echo '">';
-						}
-
-		            	// creating the post header
-		            	thematic_postheader();
-		            ?>
-
-						<div class="entry-content">
-
-							<?php thematic_content(); ?>
-
-							<?php wp_link_pages('before=<div class="page-link">' . __('Pages:', 'thematic') . '&after=</div>') ?>
-
-						</div><!-- .entry-content -->
-
-						<?php thematic_postfooter(); ?>
-
-					</article><!-- #post -->
-
-				<?php 
-					// action hook for insterting content below #post
-					thematic_belowpost();
-
-					comments_template();
-
-					if ( $count == thematic_get_theme_opt( 'index_insert' ) ) {
-						get_sidebar('index-insert');
-					}
-					$count = $count + 1;
-			endwhile;
-		}
-	} // end index_loop
-
-	// replace the index loop
-	if ( current_theme_supports( 'thematic-html5' ) ) {
-		remove_action('thematic_indexloop', 'thematic_index_loop');
-		add_action('thematic_indexloop','thematic_html5_index_loop');
-	}
-	
-
-	if (function_exists('childtheme_override_single_post'))  {
-		/**
-		 * @ignore
-		 */
-		function thematic_html5_single_post() {
-			childtheme_override_single_post();
-		}
-	} else {
-		/**
-		 * The Single post loop
-		 * 
-		 * Located in single.php
-		 * 
-		 * Override: childtheme_override_single_post
-		 */
-		function thematic_html5_single_post() { 
-
-					// action hook for insterting content above #post
-					thematic_abovepost();
-					?>
-
-					<?php
-						echo '<article id="post-' . get_the_ID() . '" ';
-						// Checking for defined constant to enable Thematic's post classes
-						if ( ! ( THEMATIC_COMPATIBLE_POST_CLASS ) ) {
-						    post_class();
-						    echo '>';
-						} else {
-						    echo 'class="';
-						    thematic_post_class();
-						    echo '">';
-						}
-
-		            	// creating the post header
-		            	thematic_postheader();
-		            ?>
-
-						<div class="entry-content">
-
-							<?php thematic_content(); ?>
-
-							<?php wp_link_pages('before=<div class="page-link">' . __('Pages:', 'thematic') . '&after=</div>') ?>
-
-						</div><!-- .entry-content -->
-
-						<?php thematic_postfooter(); ?>
-
-					</article><!-- #post -->
 			<?php
+			echo '<article id="post-' . get_the_ID() . '" ';
+				    post_class();
+				    echo '>';
+			
+			// creating the post header
+		    thematic_postheader(); ?>
+
+				<div class="entry-content">
+
+					<?php thematic_content(); ?>
+
+					<?php wp_link_pages('before=<div class="page-link">' . __('Pages:', 'thematic') . '&after=</div>') ?>
+
+				</div><!-- .entry-content -->
+
+				<?php thematic_postfooter(); ?>
+					
+			</article><!-- #post -->
+
+			<?php 
 				// action hook for insterting content below #post
 				thematic_belowpost();
-		}
-	} // end single_post
 
-	// replace the single post loop
-	if ( current_theme_supports( 'thematic-html5' ) ) {
-		remove_action('thematic_singlepost', 'thematic_single_post');
-		add_action('thematic_singlepost','thematic_html5_single_post');
+				comments_template();
+
+				if ( $count == thematic_get_theme_opt( 'index_insert' ) ) {
+					get_sidebar('index-insert');
+				}
+				$count = $count + 1;
+		endwhile;
+
 	}
 
+} // end index_loop
 
-	if (function_exists('childtheme_override_search_loop'))  {
-		/**
-		 * @ignore
-		 */
-		function thematic_html5_search_loop() {
-			childtheme_override_search_loop();
-		}
-	} else {
-		/**
-		 * The Search loop
-		 * 
-		 * Located in search.php
-		 * 
-		 * Override: childtheme_override_search_loop
-		 */
-		function thematic_html5_search_loop() {
-			while ( have_posts() ) : the_post(); 
+/**
+  * The Single post loop
+  * 
+  * Located in single.php
+  * 
+  * Override: childtheme_override_single_post
+  */
+if(!function_exists('childtheme_override_index_loop')) {
 
-					// action hook for insterting content above #post
-					thematic_abovepost();
-					?>
+	function childtheme_override_index_loop() {
 
-					<?php
-						echo '<article id="post-' . get_the_ID() . '" ';
-						// Checking for defined constant to enable Thematic's post classes
-						if ( ! ( THEMATIC_COMPATIBLE_POST_CLASS ) ) {
-						    post_class();
-						    echo '>';
-						} else {
-						    echo 'class="';
-						    thematic_post_class();
-						    echo '">';
-						}
+		// action hook for insterting content above #post
+		thematic_abovepost();
+		
+		echo '<article id="post-' . get_the_ID() . '" ';
+				post_class();
+				echo '>';
+						
+			// creating the post header
+			thematic_postheader(); ?>
 
-		            	// creating the post header
-		            	thematic_postheader();
-		            ?>
+			<div class="entry-content">
 
-						<div class="entry-content">
+				<?php thematic_content(); ?>
 
-							<?php thematic_content(); ?>
+				<?php wp_link_pages('before=<div class="page-link">' . __('Pages:', 'thematic') . '&after=</div>') ?>
 
-						</div><!-- .entry-content -->
+			</div><!-- .entry-content -->
 
-						<?php thematic_postfooter(); ?>
+			<?php thematic_postfooter(); ?>
 
-					</article><!-- #post -->
+		</article><!-- #post -->
+			
+		<?php
+		// action hook for insterting content below #post
+		thematic_belowpost();
 
-				<?php 
-					// action hook for insterting content below #post
-					thematic_belowpost();
-
-			endwhile;
-		}
-	} // end search_loop
-
-	// replace the search loop
-	if ( current_theme_supports( 'thematic-html5' ) ) {
-		remove_action('thematic_searchloop', 'thematic_search_loop');
-		add_action('thematic_searchloop','thematic_html5_search_loop');
 	}
+
+} 		
+
 	
+/**
+  * The Archive loop
+  * 
+  * Located in archive.php
+  * 
+  * Override: childtheme_override_archive_loop
+  */
+  
+if(!function_exists('childtheme_override_archive_loop')) {
 
-	if (function_exists('childtheme_override_tag_loop'))  {
-		/**
-		 * @ignore
-		 */
-		function thematic_html5_tag_loop() {
-			childtheme_override_tag_loop();
-		}
-	} else {
-		/**
-		 * The Tag loop
+	function childtheme_override_archive_loop() {
+
+		thematic_html5_default_loop();
+		
+	}
+
+} // end archive_loop
+
+/**
+  * The Author loop
+  * 
+  * Located in author.php
+  * 
+  * Override: childtheme_override_author_loop
+  */
+  
+if(!function_exists('childtheme_override_author_loop')) {
+
+	function childtheme_override_author_loop() {
+
+		thematic_html5_default_loop();
+		
+	}
+
+} // end author_loop
+
+
+/**
+  * The Category loop
+  * 
+  * Located in category.php
+  * 
+  * Override: childtheme_override_category_loop
+  */
+  
+if(!function_exists('childtheme_override_category_loop')) {
+
+	function childtheme_override_category_loop() {
+
+		thematic_html5_default_loop();
+		
+	}
+
+} // end category_loop
+
+/**
+  * The Search loop
+  * 
+  * Located in search.php
+  * 
+  * Override: childtheme_override_search_loop
+  */
+
+if(!function_exists('childtheme_override_search_loop')) {
+
+	function childtheme_override_search_loop() {
+
+		thematic_html5_default_loop();
+		
+	}
+
+} // end search_loop
+
+/**
+  * The Tag loop
+  * 
+  * Located in trag.php
+  * 
+  * Override: childtheme_override_tag_loop
+  */
+  
+if(!function_exists('childtheme_override_tag_loop')) {
+
+	function childtheme_override_tag_loop() {
+
+		thematic_html5_default_loop();
+		
+	}
+
+} // end tag_loop
+
+/**
+  * The Archive loop
+  * 
+  * Located in archive.php
+  * 
+  * Override: childtheme_override_archive_loop
+  */
+  
+if(!function_exists('childtheme_override_archive_loop')) {
+
+	function childtheme_override_archive_loop() {
+
+		thematic_html5_default_loop();
+		
+	}
+
+} // end category_loop
+
+/**
+  * The Default loop
+  * 
+  * Called by childtheme_override_category_loop, childtheme_override_archive_loop,
+  * chidltheme_override_tag_loop, childtheme_override_search_loop, childtheme_override_author_loop
+  * 
+  * Override: childtheme_override_category_loop
+  */
+ 
+ 
+if (function_exists('childtheme_override_html5_default_loop'))  {
+	/**
+	 * @ignore
+	 */
+	function thematic_html5_default_loop() {
+		childtheme_override_html5_default_loop();
+	}
+} else {
+	/**
+		 * The Default loop
 		 * 
-		 * Located in tag.php
+		 * Located in archive.php, tag.php, category.php, etc
 		 * 
-		 * Override: childtheme_override_tag_loop
+		 * Override: childtheme_override_html5_default_loop
 		 */
-		function thematic_html5_tag_loop() {
+		function thematic_html5_default_loop() {
 			while ( have_posts() ) : the_post(); 
 
 					// action hook for insterting content above #post
@@ -430,15 +259,8 @@ function thematic_html5_loopchange() {
 
 					<?php
 						echo '<article id="post-' . get_the_ID() . '" ';
-						// Checking for defined constant to enable Thematic's post classes
-						if ( ! ( THEMATIC_COMPATIBLE_POST_CLASS ) ) {
 						    post_class();
 						    echo '>';
-						} else {
-						    echo 'class="';
-						    thematic_post_class();
-						    echo '">';
-						}
 
 		            	// creating the post header
 		            	thematic_postheader();
@@ -460,17 +282,8 @@ function thematic_html5_loopchange() {
 
 			endwhile;
 		}
-	} // end tag_loop
 
-	// replace the tag loop
-	if ( current_theme_supports( 'thematic-html5' ) ) {
-		remove_action('thematic_tagloop', 'thematic_tag_loop');
-		add_action('thematic_tagloop','thematic_html5_tag_loop');
-	}
-} // end thematic_html5_loopchange
-
-add_action('after_setup_theme','thematic_html5_loopchange',40);
-
+} // end default_loop
 
 /**
  * Change navigation
