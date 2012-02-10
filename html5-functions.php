@@ -36,6 +36,22 @@ function thematic_html5_add_filters() {
 		// filter the fallback page menu to also use the nav element
 		add_filter('wp_page_menu','thematic_html5_pagemenu');
 		
+		// filter the fallback page menu to also use the nav element
+		add_filter('wp_link_pages_args','thematic_html5_pagelinks');
+		
+		
+		// add the post header filter if a child theme is not overriding it already
+		if ( !function_exists( 'childtheme_override_postheader' ) )
+			add_filter('thematic_postheader','thematic_html5_postheader');
+
+		// add the post header posttitle filter if a child theme is not overriding it already
+		if ( !function_exists( 'childtheme_override_postheader_posttitle' ) )
+			add_filter('thematic_postheader_posttitle','thematic_html5_postheader_posttitle');
+
+		// add the post footer filter if a child theme is not overriding it already
+		if ( !function_exists( 'childtheme_override_postfooter' ) )
+			add_filter('thematic_postfooter','thematic_html5_postfooter');
+		
 		
 		// filter the widget areas to use aside element
 		add_filter('thematic_before_widget_area','thematic_html5_before_widget_area');
@@ -114,6 +130,53 @@ function thematic_html5_pagemenu( $menu ) {
 	$menu = str_replace( '<div class="menu">', '<nav class="menu">', $menu);
 	$menu = str_replace( '</div>', '</nav>', $menu );
 	return $menu;
+}
+
+
+/**
+ * Filter the post pagination to use the nav element
+ *
+ * @since 0.1
+ **/
+function thematic_html5_pagelinks( $args ) {
+	$args['before'] = "\t\t\t\t\t<nav class='page-link'>" . __( 'Pages: ', 'thematic' ); 
+	$args['after'] = "</nav>\n";
+	return $args;
+}
+
+
+/**
+ * Filter the post header, wrapping title and post meta in header tags
+ *
+ * @since 0.1
+ **/
+function thematic_html5_postheader( $content ) {
+	$content = '<header class="entry-header">' . $content;
+	$content .= '</header>';
+	return $content;
+}
+
+
+/**
+ * Filter the post header's post title
+ *
+ * @since 0.1
+ **/
+function thematic_html5_postheader_posttitle( $content ) {
+	$content = str_replace( 'h2', 'h1', $content);
+	return $content;
+}
+
+
+/**
+ * Filter the post footer
+ *
+ * @since 0.1
+ **/
+function thematic_html5_postfooter( $content ) {
+	$content = str_replace( '<div class="entry-utility">', '<footer class="entry-utility">', $content);
+	$content = str_replace( '</div><!-- .entry-utility -->', '</footer><!-- .entry-utility -->', $content );
+	return $content;
 }
 
 
