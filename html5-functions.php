@@ -40,6 +40,19 @@ function thematic_html5_add_filters() {
 		add_filter('wp_link_pages_args','thematic_html5_pagelinks');
 		
 		
+		// add the post header filter if a child theme is not overriding it already
+		if ( !function_exists( 'childtheme_override_postheader' ) )
+			add_action('thematic_postheader','thematic_html5_postheader');
+
+		// add the post header posttitle filter if a child theme is not overriding it already
+		if ( !function_exists( 'childtheme_override_postheader_posttitle' ) )
+			add_action('thematic_postheader_posttitle','thematic_html5_postheader_posttitle');
+
+		// add the post footer filter if a child theme is not overriding it already
+		if ( !function_exists( 'childtheme_override_postfooter' ) )
+			add_action('thematic_postfooter','thematic_html5_postfooter');
+		
+		
 		// filter the widget areas to use aside element
 		add_filter('thematic_before_widget_area','thematic_html5_before_widget_area');
 		add_filter('thematic_after_widget_area','thematic_html5_after_widget_area');
@@ -132,63 +145,39 @@ function thematic_html5_pagelinks( $args ) {
 }
 
 
-
 /**
- * Change the post header and footer to use header and footer element, respectively
+ * Filter the post header, wrapping title and post meta in header tags
  *
  * @since 0.1
  **/
-function thematic_html5_postchange() {
-	
-	/**
-	 * Filter the post header, wrapping title and post meta in header tags
-	 *
-	 * @since 0.1
-	 **/
-	function thematic_html5_postheader( $content ) {
-		$content = '<header class="entry-header">' . $content;
-		$content .= '</header>';
-		return $content;
-	}
-	// add the footer filter if a child theme is not overriding it already
-	if ( current_theme_supports( 'thematic-html5' ) && !function_exists( 'childtheme_override_postheader' ) ) {
-		add_action('thematic_postheader','thematic_html5_postheader');
-	}
-	
-	
-	/**
-	 * Filter the post header's post title
-	 *
-	 * @since 0.1
-	 **/
-	function thematic_html5_postheader_posttitle( $content ) {
-		$content = str_replace( 'h2', 'h1', $content);
-		return $content;
-	}
-	// add the footer filter if a child theme is not overriding it already
-	if ( current_theme_supports( 'thematic-html5' ) && !function_exists( 'childtheme_override_postheader_posttitle' ) ) {
-		add_action('thematic_postheader_posttitle','thematic_html5_postheader_posttitle');
-	}
-	
-	
-	/**
-	 * Filter the post footer
-	 *
-	 * @since 0.1
-	 **/
-	function thematic_html5_postfooter( $content ) {
-		$content = str_replace( '<div class="entry-utility">', '<footer class="entry-utility">', $content);
-		$content = str_replace( '</div><!-- .entry-utility -->', '</footer><!-- .entry-utility -->', $content );
-		return $content;
-	}
-	// add the footer filter if a child theme is not overriding it already
-	if ( current_theme_supports( 'thematic-html5' ) && !function_exists( 'childtheme_override_postfooter' ) ) {
-		add_action('thematic_postfooter','thematic_html5_postfooter');
-	}
-	
-	
+function thematic_html5_postheader( $content ) {
+	$content = '<header class="entry-header">' . $content;
+	$content .= '</header>';
+	return $content;
 }
-add_action('after_setup_theme','thematic_html5_postchange',40);
+
+
+/**
+ * Filter the post header's post title
+ *
+ * @since 0.1
+ **/
+function thematic_html5_postheader_posttitle( $content ) {
+	$content = str_replace( 'h2', 'h1', $content);
+	return $content;
+}
+
+
+/**
+ * Filter the post footer
+ *
+ * @since 0.1
+ **/
+function thematic_html5_postfooter( $content ) {
+	$content = str_replace( '<div class="entry-utility">', '<footer class="entry-utility">', $content);
+	$content = str_replace( '</div><!-- .entry-utility -->', '</footer><!-- .entry-utility -->', $content );
+	return $content;
+}
 
 
 /**
