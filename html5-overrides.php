@@ -9,18 +9,6 @@
 
 
 /**
- * testing
- *
- * @return void
- * @author Karin
- **/
-function testfunction() {
-	echo 'bacon!';
-}
-//add_action('thematic_before','testfunction',10);
-
-
-/**
  * Change the loops.
  * 
  * Change the loops found in content-extensions.php of Thematic. This is basicaly a copy-paste
