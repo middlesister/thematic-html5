@@ -42,15 +42,15 @@ function thematic_html5_add_filters() {
 		
 		// add the post header filter if a child theme is not overriding it already
 		if ( !function_exists( 'childtheme_override_postheader' ) )
-			add_action('thematic_postheader','thematic_html5_postheader');
+			add_filter('thematic_postheader','thematic_html5_postheader');
 
 		// add the post header posttitle filter if a child theme is not overriding it already
 		if ( !function_exists( 'childtheme_override_postheader_posttitle' ) )
-			add_action('thematic_postheader_posttitle','thematic_html5_postheader_posttitle');
+			add_filter('thematic_postheader_posttitle','thematic_html5_postheader_posttitle');
 
 		// add the post footer filter if a child theme is not overriding it already
 		if ( !function_exists( 'childtheme_override_postfooter' ) )
-			add_action('thematic_postfooter','thematic_html5_postfooter');
+			add_filter('thematic_postfooter','thematic_html5_postfooter');
 		
 		
 		// filter the widget areas to use aside element
