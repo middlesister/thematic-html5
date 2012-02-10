@@ -83,6 +83,9 @@ add_action('after_setup_theme','thematic_html5_replace_functions',40);
  * this is the loop that will be used throughout
  */
 function thematic_html5_default_loop() {
+	if ( is_author() ) 
+		rewind_posts();
+	
 	while ( have_posts() ) : the_post(); 
 
 			// action hook for insterting content above #post
