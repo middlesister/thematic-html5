@@ -27,6 +27,8 @@ function thematic_html5_init() {
 	/* Load override functions */
 	require_once( plugin_dir_path( __FILE__ ) . '/html5-overrides.php' );
 	
+	/* Load output buffer functions */
+	require_once( plugin_dir_path( __FILE__ ) . '/html5-buffer.php' );
 }
 
 
