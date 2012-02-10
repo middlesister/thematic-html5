@@ -36,6 +36,9 @@ function thematic_html5_add_filters() {
 		// filter the fallback page menu to also use the nav element
 		add_filter('wp_page_menu','thematic_html5_pagemenu');
 		
+		// filter the fallback page menu to also use the nav element
+		add_filter('wp_link_pages_args','thematic_html5_pagelinks');
+		
 		
 		// filter the widget areas to use aside element
 		add_filter('thematic_before_widget_area','thematic_html5_before_widget_area');
@@ -115,6 +118,19 @@ function thematic_html5_pagemenu( $menu ) {
 	$menu = str_replace( '</div>', '</nav>', $menu );
 	return $menu;
 }
+
+
+/**
+ * Filter the post pagination to use the nav element
+ *
+ * @since 0.1
+ **/
+function thematic_html5_pagelinks( $args ) {
+	$args['before'] = "\t\t\t\t\t<nav class='page-link'>" . __( 'Pages: ', 'thematic' ); 
+	$args['after'] = "</nav>\n";
+	return $args;
+}
+
 
 
 /**
