@@ -1,4 +1,4 @@
-# Thematic html5 plugin #
+=== Thematic html5 plugin ===
 Contributors: middlesister
 Tags: thematic, html5
 Requires at least: 3.4
@@ -7,7 +7,7 @@ License: GPLv2 or later
 
 Convert the markup of the Thematic theme framework to html5
 
-## Description ##
+== Description ==
 
 This plugin will convert the markup of themes based on the Thematic theme framework to use html5 elements. It uses the built in filters of Thematic to change the markup in desired places. Changes are:
 
@@ -30,16 +30,15 @@ At the moment, this is all the plugin does. You will need to take care of browse
 Future developments of this plugin might include things like the boilerplate opening html tag or including a html5-shiv. Feature requests, bug reports and general suggestions are welcome at the [github issue tracker](https://github.com/middlesister/thematic-html5/issues).
 
 
-## Installation ##
-
+== Installation ==
 
 1. Upload the plugin folder to the `/wp-content/plugins/` directory
 1. Activate the plugin through the 'Plugins' menu in WordPress
 1. That's it! No step three! You can verify that your site is using html5 elements with developer tools in chrome or firebug for firefox or similar.
 
 
-## Changelog ##
+== Changelog ==
 
-### 0.1 ###
+= 0.1 =
 * Initial release
 
