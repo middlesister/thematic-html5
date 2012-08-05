@@ -3,7 +3,7 @@
  * Plugin Name: Thematic HTML5
  * Plugin URI: http://github.com/middlesister/thematic-html5
  * Description: A wordpress plugin to use html5 markup with the thematic theme framework 
- * Version: 0.1
+ * Version: 0.2
  * Author: Karin Taliga
  * 
  * @package Thematic-HTML5
