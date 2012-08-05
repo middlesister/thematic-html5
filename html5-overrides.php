@@ -91,19 +91,10 @@ function thematic_html5_default_loop() {
 			// action hook for insterting content above #post
 			thematic_abovepost(); 
 			?>
+			
+			<article id="post-<?php the_ID(); ?>" <?php post_class(); ?> > 
 
 			<?php
-				echo '<article id="post-' . get_the_ID() . '" ';
-				// Checking for defined constant to enable Thematic's post classes
-				if ( ! ( THEMATIC_COMPATIBLE_POST_CLASS ) ) {
-				    post_class();
-				    echo '>';
-				} else {
-				    echo 'class="';
-				    thematic_post_class();
-				    echo '">';
-				}
-
             	// creating the post header
             	thematic_postheader();
             ?>
@@ -140,19 +131,10 @@ function thematic_html5_index_loop() {
 			// action hook for insterting content above #post
 			thematic_abovepost();
 			?>
+			
+			<article id="post-<?php the_ID(); ?>" <?php post_class(); ?> > 
 
 			<?php
-				echo '<article id="post-' . get_the_ID() . '" ';
-				// Checking for defined constant to enable Thematic's post classes
-				if ( ! ( THEMATIC_COMPATIBLE_POST_CLASS ) ) {
-				    post_class();
-				    echo '>';
-				} else {
-				    echo 'class="';
-				    thematic_post_class();
-				    echo '">';
-				}
-
             	// creating the post header
             	thematic_postheader();
             ?>
@@ -161,8 +143,9 @@ function thematic_html5_index_loop() {
 				
 					<?php thematic_content(); ?>
 
-					<?php wp_link_pages('before=<nav class="page-link">' . __('Pages:', 'thematic') . '&after=</nav>') ?>
-				
+					<?php wp_link_pages(array('before' => sprintf('<nav class="page-link">%s', __('Pages:', 'thematic')),
+												'after' => '</nav>')); ?>
+												
 				</div><!-- .entry-content -->
 				
 				<?php thematic_postfooter(); ?>
@@ -194,18 +177,9 @@ function thematic_html5_single_post() {
 			thematic_abovepost();
 			?>
 		
+			<article id="post-<?php the_ID(); ?>" <?php post_class(); ?> > 
+		
 			<?php
-				echo '<article id="post-' . get_the_ID() . '" ';
-				// Checking for defined constant to enable Thematic's post classes
-				if ( ! ( THEMATIC_COMPATIBLE_POST_CLASS ) ) {
-				    post_class();
-				    echo '>';
-				} else {
-				    echo 'class="';
-				    thematic_post_class();
-				    echo '">';
-				}
-
             	// creating the post header
             	thematic_postheader();
             ?>
@@ -214,8 +188,9 @@ function thematic_html5_single_post() {
 				
 					<?php thematic_content(); ?>
 
-					<?php wp_link_pages('before=<nav class="page-link">' . __('Pages:', 'thematic') . '&after=</nav>') ?>
-					
+					<?php wp_link_pages(array('before' => sprintf('<nav class="page-link">%s', __('Pages:', 'thematic')),
+												'after' => '</nav>')); ?>
+												
 				</div><!-- .entry-content -->
 				
 				<?php thematic_postfooter(); ?>
