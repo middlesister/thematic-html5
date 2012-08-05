@@ -9,7 +9,7 @@ Convert the markup of the Thematic theme framework to html5
 
 == Description ==
 
-This plugin will convert the markup of themes based on the Thematic theme framework to use html5 elements. It uses the built in filters of Thematic to change the markup in desired places. Changes are:
+This plugin will convert the markup of themes based on the Thematic theme framework to use html5 elements. Requires Thematic 1.0 or later. It uses the built in filters of Thematic to change the markup in desired places. Changes are:
 
 * doctype changed to `<!DOCTYPE html>`
 * meta tag "charset" added to `<head>`
@@ -27,7 +27,7 @@ This plugin will convert the markup of themes based on the Thematic theme framew
  
 At the moment, this is all the plugin does. You will need to take care of browser support yourself. New filters were introduced in Thematic 1.0.2 that optimizes the use of this plugin, but it will work with Thematic 1.0 as well using output buffering and string replacing.
 
-Future developments of this plugin might include things like the boilerplate opening html tag or including a html5-shiv. Feature requests, bug reports and general suggestions are welcome at the [github issue tracker](https://github.com/middlesister/thematic-html5/issues).
+Future development of this plugin might include things like the boilerplate opening html tag or including a html5-shiv. Feature requests, bug reports and general suggestions are welcome at the [github issue tracker](https://github.com/middlesister/thematic-html5/issues).
 
 
 == Installation ==
@@ -38,6 +38,9 @@ Future developments of this plugin might include things like the boilerplate ope
 
 
 == Changelog ==
+
+= 0.2 =
+* Plugin rewrite to use OOP
 
 = 0.1 =
 * Initial release
