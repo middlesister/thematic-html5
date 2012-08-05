@@ -17,63 +17,60 @@
  * @since 0.1
  */
 function thematic_html5_replace_functions() {
+	
+	// replace the archive loop
+	if ( !function_exists( 'childtheme_override_archive_loop' ) ) {
+		remove_action('thematic_archiveloop', 'thematic_archive_loop');
+		add_action('thematic_archiveloop','thematic_html5_default_loop');
+	}
 
-	if ( current_theme_supports( 'thematic-html5' ) ) {
-	
-		// replace the archive loop
-		if ( !function_exists( 'childtheme_override_archive_loop' ) ) {
-			remove_action('thematic_archiveloop', 'thematic_archive_loop');
-			add_action('thematic_archiveloop','thematic_html5_default_loop');
-		}
-	
-		// replace the author loop
-		if ( !function_exists( 'childtheme_override_author_loop' ) ) {
-			remove_action('thematic_authorloop', 'thematic_author_loop');
-			add_action('thematic_authorloop','thematic_html5_default_loop');
-		}
-	
-		// replace the category loop
-		if ( !function_exists( 'childtheme_override_category_loop' ) ) {
-			remove_action('thematic_categoryloop', 'thematic_category_loop');
-			add_action('thematic_categoryloop','thematic_html5_default_loop');
-		}
-	
-		// replace the index loop
-		if ( !function_exists( 'childtheme_override_index_loop' ) ) {
-			remove_action('thematic_indexloop', 'thematic_index_loop');
-			add_action('thematic_indexloop','thematic_html5_index_loop');
-		}
-	
-		// replace the single post loop
-		if ( !function_exists( 'childtheme_override_single_post' ) ) {
-			remove_action('thematic_singlepost', 'thematic_single_post');
-			add_action('thematic_singlepost','thematic_html5_single_post');
-		}
-	
-		// replace the search loop
-		if ( !function_exists( 'childtheme_override_search_loop' ) ) {
-			remove_action('thematic_searchloop', 'thematic_search_loop');
-			add_action('thematic_searchloop','thematic_html5_default_loop');
-		}
-	
-		// replace the tag loop
-		if ( !function_exists( 'childtheme_override_tag_loop' ) ) {
-			remove_action('thematic_tagloop', 'thematic_tag_loop');
-			add_action('thematic_tagloop','thematic_html5_default_loop');
-		}
+	// replace the author loop
+	if ( !function_exists( 'childtheme_override_author_loop' ) ) {
+		remove_action('thematic_authorloop', 'thematic_author_loop');
+		add_action('thematic_authorloop','thematic_html5_default_loop');
+	}
+
+	// replace the category loop
+	if ( !function_exists( 'childtheme_override_category_loop' ) ) {
+		remove_action('thematic_categoryloop', 'thematic_category_loop');
+		add_action('thematic_categoryloop','thematic_html5_default_loop');
+	}
+
+	// replace the index loop
+	if ( !function_exists( 'childtheme_override_index_loop' ) ) {
+		remove_action('thematic_indexloop', 'thematic_index_loop');
+		add_action('thematic_indexloop','thematic_html5_index_loop');
+	}
+
+	// replace the single post loop
+	if ( !function_exists( 'childtheme_override_single_post' ) ) {
+		remove_action('thematic_singlepost', 'thematic_single_post');
+		add_action('thematic_singlepost','thematic_html5_single_post');
+	}
+
+	// replace the search loop
+	if ( !function_exists( 'childtheme_override_search_loop' ) ) {
+		remove_action('thematic_searchloop', 'thematic_search_loop');
+		add_action('thematic_searchloop','thematic_html5_default_loop');
+	}
+
+	// replace the tag loop
+	if ( !function_exists( 'childtheme_override_tag_loop' ) ) {
+		remove_action('thematic_tagloop', 'thematic_tag_loop');
+		add_action('thematic_tagloop','thematic_html5_default_loop');
+	}
 
 
-		// replace the above navigation
-		if ( !function_exists( 'childtheme_override_nav_above' ) ) {
-			remove_action('thematic_navigation_above', 'thematic_nav_above', 2);
-			add_action('thematic_navigation_above','thematic_html5_nav_above', 2);
-		}
-	
-		// replace the navigation below
-		if ( !function_exists( 'childtheme_override_nav_below' ) ) {
-			remove_action('thematic_navigation_below', 'thematic_nav_below', 2);
-			add_action('thematic_navigation_below','thematic_html5_nav_below', 2);
-		}
+	// replace the above navigation
+	if ( !function_exists( 'childtheme_override_nav_above' ) ) {
+		remove_action('thematic_navigation_above', 'thematic_nav_above', 2);
+		add_action('thematic_navigation_above','thematic_html5_nav_above', 2);
+	}
+
+	// replace the navigation below
+	if ( !function_exists( 'childtheme_override_nav_below' ) ) {
+		remove_action('thematic_navigation_below', 'thematic_nav_below', 2);
+		add_action('thematic_navigation_below','thematic_html5_nav_below', 2);
 	}
 }
 add_action('after_setup_theme','thematic_html5_replace_functions',40);

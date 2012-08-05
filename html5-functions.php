@@ -19,55 +19,51 @@
  */
 function thematic_html5_add_filters() {
 
-	if ( current_theme_supports( 'thematic-html5' ) ) {
-
-		// create the html5 doctype
-		add_filter('thematic_create_doctype', 'thematic_html5_create_doctype');
-		
-		// remove the profile attribute from the head tag and add the meta tag charset
-		add_filter('thematic_head_profile', 'thematic_html5_head');
-		
-		// remove meta tag contenttype
-		add_filter('thematic_create_contenttype', 'thematic_html5_remove_charset');
-		
-		// filter the main menu to use the nav element
-		add_filter('thematic_nav_menu_args','thematic_html5_navmenu_args');
-		
-		// filter the fallback page menu to also use the nav element
-		add_filter('wp_page_menu','thematic_html5_pagemenu');
-		
-		// filter the fallback page menu to also use the nav element
-		add_filter('wp_link_pages_args','thematic_html5_pagelinks');
-		
-		
-		// add the post header filter if a child theme is not overriding it already
-		if ( !function_exists( 'childtheme_override_postheader' ) )
-			add_filter('thematic_postheader','thematic_html5_postheader');
-
-		// add the post header posttitle filter if a child theme is not overriding it already
-		if ( !function_exists( 'childtheme_override_postheader_posttitle' ) )
-			add_filter('thematic_postheader_posttitle','thematic_html5_postheader_posttitle');
-
-		// add the post footer filter if a child theme is not overriding it already
-		if ( !function_exists( 'childtheme_override_postfooter' ) )
-			add_filter('thematic_postfooter','thematic_html5_postfooter');
-		
-		
-		// filter the widget areas to use aside element
-		add_filter('thematic_before_widget_area','thematic_html5_before_widget_area');
-		add_filter('thematic_after_widget_area','thematic_html5_after_widget_area');
-		
-		// filter the widgets to use the section element
-		add_filter('thematic_before_widget','thematic_html5_before_widget');
-		add_filter('thematic_after_widget','thematic_html5_after_widget');
-		
-		// filter widget titles to us h1 headings
-		add_filter('thematic_before_title','thematic_html5_before_widgettitle');
-		add_filter('thematic_after_title','thematic_html5_after_widgettitle');
-		
-		
-	}
+	// create the html5 doctype
+	add_filter('thematic_create_doctype', 'thematic_html5_create_doctype');
 	
+	// remove the profile attribute from the head tag and add the meta tag charset
+	add_filter('thematic_head_profile', 'thematic_html5_head');
+	
+	// remove meta tag contenttype
+	add_filter('thematic_create_contenttype', 'thematic_html5_remove_charset');
+	
+	// filter the main menu to use the nav element
+	add_filter('thematic_nav_menu_args','thematic_html5_navmenu_args');
+	
+	// filter the fallback page menu to also use the nav element
+	add_filter('wp_page_menu','thematic_html5_pagemenu');
+	
+	// filter the fallback page menu to also use the nav element
+	add_filter('wp_link_pages_args','thematic_html5_pagelinks');
+	
+	
+	// add the post header filter if a child theme is not overriding it already
+	if ( !function_exists( 'childtheme_override_postheader' ) )
+		add_filter('thematic_postheader','thematic_html5_postheader');
+
+	// add the post header posttitle filter if a child theme is not overriding it already
+	if ( !function_exists( 'childtheme_override_postheader_posttitle' ) )
+		add_filter('thematic_postheader_posttitle','thematic_html5_postheader_posttitle');
+
+	// add the post footer filter if a child theme is not overriding it already
+	if ( !function_exists( 'childtheme_override_postfooter' ) )
+		add_filter('thematic_postfooter','thematic_html5_postfooter');
+	
+	
+	// filter the widget areas to use aside element
+	add_filter('thematic_before_widget_area','thematic_html5_before_widget_area');
+	add_filter('thematic_after_widget_area','thematic_html5_after_widget_area');
+	
+	// filter the widgets to use the section element
+	add_filter('thematic_before_widget','thematic_html5_before_widget');
+	add_filter('thematic_after_widget','thematic_html5_after_widget');
+	
+	// filter widget titles to us h1 headings
+	add_filter('thematic_before_title','thematic_html5_before_widgettitle');
+	add_filter('thematic_after_title','thematic_html5_after_widgettitle');
+	
+			
 }
 add_action('after_setup_theme','thematic_html5_add_filters', '40');
 
