@@ -21,7 +21,7 @@ class Ivst_Thematic_Html5 {
 	 * Set up the plugin
 	 */
 	function __construct() {
-		add_action('after_setup_theme', array( &$this, 'thematic_html5_add_filters' ), '40');
+		add_action('after_setup_theme', array( &$this, 'add_filters' ), '40');
 	}
 	
 	/**
@@ -32,110 +32,110 @@ class Ivst_Thematic_Html5 {
 	 *
 	 * @since 0.1
 	 */
-	function thematic_html5_add_filters() {
+	function add_filters() {
 
 		// create the html5 doctype
-		add_filter( 'thematic_create_doctype', array( &$this, 'thematic_html5_create_doctype' ) );
+		add_filter( 'thematic_create_doctype', array( &$this, 'create_doctype' ) );
 
 		// remove the profile attribute from the head tag and add the meta tag charset
-		add_filter( 'thematic_head_profile', array( &$this, 'thematic_html5_head' ) );
+		add_filter( 'thematic_head_profile', array( &$this, 'head_profile' ) );
 
 		// remove meta tag contenttype
-		add_filter( 'thematic_create_contenttype', array( &$this, 'thematic_html5_remove_charset' ) );
+		add_filter( 'thematic_create_contenttype', array( &$this, 'remove_charset' ) );
 
 		// filter the main menu to use the nav element
-		add_filter( 'thematic_nav_menu_args', array( &$this, 'thematic_html5_navmenu_args' ) );
+		add_filter( 'thematic_nav_menu_args', array( &$this, 'navmenu_args' ) );
 
 		// filter the fallback page menu to also use the nav element
-		add_filter( 'wp_page_menu', array( &$this, 'thematic_html5_pagemenu' ) );
+		add_filter( 'wp_page_menu', array( &$this, 'pagemenu' ) );
 
 		// filter the fallback page menu to also use the nav element
-		add_filter( 'wp_link_pages_args', array( &$this, 'thematic_html5_pagelinks' ) );
+		add_filter( 'wp_link_pages_args', array( &$this, 'pagelinks' ) );
 
 
 		// add the post header filter if a child theme is not overriding it already
 		if ( !function_exists( 'childtheme_override_postheader' ) )
-			add_filter( 'thematic_postheader', array( &$this, 'thematic_html5_postheader' ) );
+			add_filter( 'thematic_postheader', array( &$this, 'postheader' ) );
 
 		// add the post header posttitle filter if a child theme is not overriding it already
 		if ( !function_exists( 'childtheme_override_postheader_posttitle' ) )
-			add_filter( 'thematic_postheader_posttitle', array( &$this, 'thematic_html5_postheader_posttitle' ) );
+			add_filter( 'thematic_postheader_posttitle', array( &$this, 'postheader_posttitle' ) );
 
 		// add the post footer filter if a child theme is not overriding it already
 		if ( !function_exists( 'childtheme_override_postfooter' ) )
-			add_filter( 'thematic_postfooter', array( &$this, 'thematic_html5_postfooter' ) );
+			add_filter( 'thematic_postfooter', array( &$this, 'postfooter' ) );
 
 
 		// filter the widget areas to use aside element
-		add_filter( 'thematic_before_widget_area', array( &$this, 'thematic_html5_before_widget_area' ) );
-		add_filter( 'thematic_after_widget_area', array( &$this, 'thematic_html5_after_widget_area' ) );
+		add_filter( 'thematic_before_widget_area', array( &$this, 'before_widget_area' ) );
+		add_filter( 'thematic_after_widget_area', array( &$this, 'after_widget_area' ) );
 
 		// filter the widgets to use the section element
-		add_filter( 'thematic_before_widget', array( &$this, 'thematic_html5_before_widget' ) );
-		add_filter( 'thematic_after_widget', array( &$this, 'thematic_html5_after_widget' ) );
+		add_filter( 'thematic_before_widget', array( &$this, 'before_widget' ) );
+		add_filter( 'thematic_after_widget', array( &$this, 'after_widget' ) );
 
 		// filter widget titles to us h1 headings
-		add_filter( 'thematic_before_title', array( &$this, 'thematic_html5_before_widgettitle' ) );
-		add_filter( 'thematic_after_title', array( &$this, 'thematic_html5_after_widgettitle' ) );
+		add_filter( 'thematic_before_title', array( &$this, 'before_widgettitle' ) );
+		add_filter( 'thematic_after_title', array( &$this, 'after_widgettitle' ) );
 
 
 		// replace the archive loop
 		if ( !function_exists( 'childtheme_override_archive_loop' ) ) {
 			remove_action( 'thematic_archiveloop', 'thematic_archive_loop');
-			add_action( 'thematic_archiveloop', array( &$this, 'thematic_html5_default_loop' ) );
+			add_action( 'thematic_archiveloop', array( &$this, 'default_loop' ) );
 		}
 
 		// replace the author loop
 		if ( !function_exists( 'childtheme_override_author_loop' ) ) {
 			remove_action( 'thematic_authorloop', 'thematic_author_loop');
-			add_action( 'thematic_authorloop', array( &$this, 'thematic_html5_default_loop' ) );
+			add_action( 'thematic_authorloop', array( &$this, 'default_loop' ) );
 		}
 
 		// replace the category loop
 		if ( !function_exists( 'childtheme_override_category_loop' ) ) {
 			remove_action( 'thematic_categoryloop', 'thematic_category_loop');
-			add_action( 'thematic_categoryloop', array( &$this, 'thematic_html5_default_loop' ) );
+			add_action( 'thematic_categoryloop', array( &$this, 'default_loop' ) );
 		}
 
 		// replace the index loop
 		if ( !function_exists( 'childtheme_override_index_loop' ) ) {
 			remove_action( 'thematic_indexloop', 'thematic_index_loop');
-			add_action( 'thematic_indexloop', array( &$this, 'thematic_html5_index_loop' ) );
+			add_action( 'thematic_indexloop', array( &$this, 'index_loop' ) );
 		}
 
 		// replace the single post loop
 		if ( !function_exists( 'childtheme_override_single_post' ) ) {
 			remove_action( 'thematic_singlepost', 'thematic_single_post');
-			add_action( 'thematic_singlepost', array( &$this, 'thematic_html5_single_post' ) );
+			add_action( 'thematic_singlepost', array( &$this, 'single_post' ) );
 		}
 
 		// replace the search loop
 		if ( !function_exists( 'childtheme_override_search_loop' ) ) {
 			remove_action( 'thematic_searchloop', 'thematic_search_loop' );
-			add_action( 'thematic_searchloop', array( &$this, 'thematic_html5_default_loop' ) );
+			add_action( 'thematic_searchloop', array( &$this, 'default_loop' ) );
 		}
 
 		// replace the tag loop
 		if ( !function_exists( 'childtheme_override_tag_loop' ) ) {
 			remove_action( 'thematic_tagloop', 'thematic_tag_loop');
-			add_action( 'thematic_tagloop', array( &$this, 'thematic_html5_default_loop' ) );
+			add_action( 'thematic_tagloop', array( &$this, 'default_loop' ) );
 		}
 
 		// replace the above navigation
 		if ( !function_exists( 'childtheme_override_nav_above' ) ) {
 			remove_action( 'thematic_navigation_above', 'thematic_nav_above', 2);
-			add_action( 'thematic_navigation_above', array( &$this, 'thematic_html5_nav_above' ), 2);
+			add_action( 'thematic_navigation_above', array( &$this, 'nav_above' ), 2);
 		}
 
 		// replace the navigation below
 		if ( !function_exists( 'childtheme_override_nav_below' ) ) {
 			remove_action( 'thematic_navigation_below', 'thematic_nav_below', 2);
-			add_action( 'thematic_navigation_below', array( &$this, 'thematic_html5_nav_below' ), 2);
+			add_action( 'thematic_navigation_below', array( &$this, 'nav_below' ), 2);
 		}
 		
 		// check wp-version
 		if( !function_exists( 'wp_get_theme' ) ) {
-			add_action( 'admin_notices',  array( &$this, 'thematic_html5_upgrade_notice' ) );	
+			add_action( 'admin_notices',  array( &$this, 'upgrade_notice' ) );	
 		} else {
 
 		    $frameworkData = wp_get_theme( 'thematic' );
@@ -143,15 +143,15 @@ class Ivst_Thematic_Html5 {
 			// check Thematic version
 			if( '1.0.2' >= $frameworkData->Version ) {
 				// use output buffering if the filters are not available
-				add_action( 'wp_head', array( &$this, 'thematic_html5_buffer_start' ), -999 );
-				add_action( 'wp_footer', array( &$this, 'thematic_html5_buffer_end' ) );
+				add_action( 'wp_head', array( &$this, 'buffer_start' ), -999 );
+				add_action( 'wp_footer', array( &$this, 'buffer_end' ) );
 			} else {
 				// use the new filters in 1.0.2
-				add_filter( 'thematic_open_header',  array( &$this, 'thematic_html5_open_header' ) );
-				add_filter( 'thematic_close_header',  array( &$this, 'thematic_html5_close_header' ) );
+				add_filter( 'thematic_open_header',  array( &$this, 'open_header' ) );
+				add_filter( 'thematic_close_header',  array( &$this, 'close_header' ) );
 
-				add_filter( 'thematic_open_footer',  array( &$this, 'thematic_html5_open_footer' ) );
-				add_filter('thematic_close_footer',  array( &$this, 'thematic_html5_close_footer' ) );
+				add_filter( 'thematic_open_footer',  array( &$this, 'open_footer' ) );
+				add_filter('thematic_close_footer',  array( &$this, 'close_footer' ) );
 			}
 		}
 		
@@ -162,7 +162,7 @@ class Ivst_Thematic_Html5 {
 	 *
 	 * @since 0.1
 	 **/
-	function thematic_html5_upgrade_notice() {
+	function upgrade_notice() {
 		global $pagenow;
 		if ( $pagenow == 'plugins.php' ) {
 			echo '<div class="error">
@@ -177,7 +177,7 @@ class Ivst_Thematic_Html5 {
 	 * 
 	 * @since 0.1 
 	 */
-	function thematic_html5_create_doctype( $content ) {
+	function create_doctype( $content ) {
 		$content = '<!DOCTYPE html>';
 		$content .= "\n";
 		$content .= '<html';
@@ -190,7 +190,7 @@ class Ivst_Thematic_Html5 {
 	 *
 	 * @since 0.1 
 	 */
-	function thematic_html5_head( $content ) {
+	function head_profile( $content ) {
 		$content = '<head>';
 		$content .= "\n";
 		$content .= '<meta charset="' . get_bloginfo( 'charset' ) . '">';
@@ -204,7 +204,7 @@ class Ivst_Thematic_Html5 {
 	 *
 	 * @since 0.1
 	 */
-	function thematic_html5_remove_charset( $content ) {
+	function remove_charset( $content ) {
 		$content = '';
 		return $content;
 	}
@@ -214,7 +214,7 @@ class Ivst_Thematic_Html5 {
 	 *
 	 * @since 0.1
 	 **/
-	function thematic_html5_open_header( $content ) {
+	function open_header( $content ) {
 		$content = '<header id="header">';
 		return $content;
 	}
@@ -224,7 +224,7 @@ class Ivst_Thematic_Html5 {
 	 *
 	 * @since 0.1
 	 **/
-	function thematic_html5_close_header( $content ) {
+	function close_header( $content ) {
 		$content = '</header><!-- #header-->';
 		return $content;
 	}	
@@ -235,7 +235,7 @@ class Ivst_Thematic_Html5 {
 	 *
 	 * @since 0.1
 	 **/
-	function thematic_html5_navmenu_args( $args ) {
+	function navmenu_args( $args ) {
 		$args['container'] = 'nav'; 
 		return $args;
 	}
@@ -246,7 +246,7 @@ class Ivst_Thematic_Html5 {
 	 *
 	 * @since 0.1
 	 **/
-	function thematic_html5_pagemenu( $menu ) {
+	function pagemenu( $menu ) {
 		$menu = str_replace( '<div class="menu">', '<nav class="menu">', $menu);
 		$menu = str_replace( '</div>', '</nav>', $menu );
 		return $menu;
@@ -258,7 +258,7 @@ class Ivst_Thematic_Html5 {
 	 *
 	 * @since 0.1
 	 **/
-	function thematic_html5_pagelinks( $args ) {
+	function pagelinks( $args ) {
 		$args['before'] = "\t\t\t\t\t<nav class='page-link'>" . __( 'Pages: ', 'thematic' ); 
 		$args['after'] = "</nav>\n";
 		return $args;
@@ -270,7 +270,7 @@ class Ivst_Thematic_Html5 {
 	 *
 	 * @since 0.1
 	 **/
-	function thematic_html5_postheader( $content ) {
+	function postheader( $content ) {
 		$content = '<header class="entry-header">' . $content;
 		$content .= '</header>';
 		return $content;
@@ -282,7 +282,7 @@ class Ivst_Thematic_Html5 {
 	 *
 	 * @since 0.1
 	 **/
-	function thematic_html5_postheader_posttitle( $content ) {
+	function postheader_posttitle( $content ) {
 		$content = str_replace( 'h2', 'h1', $content);
 		return $content;
 	}
@@ -293,7 +293,7 @@ class Ivst_Thematic_Html5 {
 	 *
 	 * @since 0.1
 	 **/
-	function thematic_html5_postfooter( $content ) {
+	function postfooter( $content ) {
 		$content = str_replace( '<div class="entry-utility">', '<footer class="entry-utility">', $content);
 		$content = str_replace( '</div><!-- .entry-utility -->', '</footer><!-- .entry-utility -->', $content );
 		return $content;
@@ -307,7 +307,7 @@ class Ivst_Thematic_Html5 {
 	 *
 	 * @since 0.1
 	 */
-	function thematic_html5_before_widget_area($content) {
+	function before_widget_area($content) {
 		$content = str_replace( '<div', '<aside ', $content);
 		$content = str_replace( '<ul class="xoxo">', ' ', $content);
 		return $content;
@@ -321,7 +321,7 @@ class Ivst_Thematic_Html5 {
 	 *
 	 * @since 0.1
 	 */
-	function thematic_html5_after_widget_area($content) {
+	function after_widget_area($content) {
 		$content = str_replace( '</ul>', ' ', $content);
 		$content = str_replace( '</div>', '</aside>', $content);
 		return $content;
@@ -333,7 +333,7 @@ class Ivst_Thematic_Html5 {
 	 *
 	 * @since 0.1
 	 **/
-	function thematic_html5_before_widget( $content ) {
+	function before_widget( $content ) {
 		$content = '<section id="%1$s" class="widgetcontainer %2$s">';
 		return $content;
 	}
@@ -344,7 +344,7 @@ class Ivst_Thematic_Html5 {
 	 *
 	 * @since 0.1
 	 **/
-	function thematic_html5_after_widget( $content ) {
+	function after_widget( $content ) {
 		$content = '</section>';
 		return $content;
 	}
@@ -355,7 +355,7 @@ class Ivst_Thematic_Html5 {
 	 *
 	 * @since 0.1
 	 **/
-	function thematic_html5_before_widgettitle( $content ) {
+	function before_widgettitle( $content ) {
 		$content = "<h1 class=\"widgettitle\">";
 		return $content;
 	}
@@ -366,7 +366,7 @@ class Ivst_Thematic_Html5 {
 	 *
 	 * @since 0.1
 	 **/
-	function thematic_html5_after_widgettitle( $content ) {
+	function after_widgettitle( $content ) {
 		$content = "</h1>\n";
 		return $content;
 	}
@@ -377,7 +377,7 @@ class Ivst_Thematic_Html5 {
 	 * If a child theme hasn't used a childtheme_override_*_loop function,
 	 * this is the loop that will be used throughout
 	 */
-	function thematic_html5_default_loop() {
+	function default_loop() {
 		if ( is_author() ) 
 			rewind_posts();
 
@@ -417,7 +417,7 @@ class Ivst_Thematic_Html5 {
 	 * 
 	 * @since 0.1
 	 */
-	function thematic_html5_index_loop() {
+	function index_loop() {
 
 		// Count the number of posts so we can insert a widgetized area
 		$count = 1;
@@ -466,7 +466,7 @@ class Ivst_Thematic_Html5 {
 	 *
 	 * @since 0.1
 	 */
-	function thematic_html5_single_post() { 
+	function single_post() { 
 
 				// action hook for insterting content above #post
 				thematic_abovepost();
@@ -506,7 +506,7 @@ class Ivst_Thematic_Html5 {
 	 * 
 	 * @link http://wordpress.org/extend/plugins/wp-pagenavi/ WP-PageNavi Plugin Page
 	 */
-	function thematic_html5_nav_above() {
+	function nav_above() {
 		if (is_single()) { 
 		?>
 				<nav id="nav-above" class="navigation">
@@ -542,7 +542,7 @@ class Ivst_Thematic_Html5 {
 	 * 
 	 * @link http://wordpress.org/extend/plugins/wp-pagenavi/ WP-PageNavi Plugin Page
 	 */
-	function thematic_html5_nav_below() {
+	function nav_below() {
 		if (is_single()) { ?>
 
 			<nav id="nav-below" class="navigation">
@@ -571,7 +571,7 @@ class Ivst_Thematic_Html5 {
 	 *
 	 * @since 0.1
 	 **/
-	function thematic_html5_open_footer( $content ) {
+	function open_footer( $content ) {
 		$content = '<footer id="footer">';
 		return $content;
 	}
@@ -581,7 +581,7 @@ class Ivst_Thematic_Html5 {
 	 *
 	 * @since 0.1
 	 **/
-	function thematic_html5_close_footer( $content ) {
+	function close_footer( $content ) {
 		$content = '</footer><!-- #footer -->';
 		return $content;
 	}
@@ -591,7 +591,7 @@ class Ivst_Thematic_Html5 {
 	 * 
 	 * @since 0.1
 	 */
-	function thematic_html5_buffer_callback( $buffer ) {
+	function buffer_callback( $buffer ) {
 
 		// replace the #header div with header element
 		$buffer = str_replace( '<div id="header">', '<header id="header">', $buffer);
@@ -613,8 +613,8 @@ class Ivst_Thematic_Html5 {
 	 * 
 	 * @since 0.1
 	 */
-	function thematic_html5_buffer_start() {
-		ob_start('thematic_html5_buffer_callback');
+	function buffer_start() {
+		ob_start('buffer_callback');
 	}
 
 	/**
@@ -622,7 +622,7 @@ class Ivst_Thematic_Html5 {
 	 * 
 	 * @since 0.1
 	 */
-	function thematic_html5_buffer_end() {
+	function buffer_end() {
 		ob_end_flush();
 	}
 }
