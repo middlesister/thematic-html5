@@ -1,34 +1,31 @@
 <?php
 /**
  * The main plugin class for Thematic-html5
+ *
+ * Adds appropriate filters for making Thematic theme 
+ * use html5 elements
  * 
  * @author Karin Taliga <invistruct@gmail.com>
- * @since 0.2
+ * @version 0.3
  * @package Thematic-HTML5
- * 
- * Copyright (C) 2010 Karin Taliga (invistruct@gmail.com)
- * 
- * This program is free software; you can redistribute it and/or modify
- * it under the terms of the GNU General Public License as published by
- * the Free Software Foundation; either version 3 of the License, or
- * (at your option) any later version.
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU General Public License for more details.
- * 
- * You should have received a copy of the GNU General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-/**
- * The main plugin class for Thematic-html5
- * 
- * Adds appropriate filters for making Thematic use html5
- *
+/*  Copyright 2012  Karin Taliga  (email : invistruct@gmail.com)
 
- */
+    This program is free software; you can redistribute it and/or modify
+    it under the terms of the GNU General Public License, version 2, as 
+    published by the Free Software Foundation.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program; if not, write to the Free Software
+    Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
+*/
+
 class Ivst_Thematic_Html5 {
 
 	/**

@@ -2,9 +2,10 @@
 /**
  * Plugin Name: Thematic HTML5
  * Plugin URI: http://github.com/middlesister/thematic-html5
+ * Plugin Author: middlesister
+ * Plugin URI: http://invistruct.com
  * Description: A wordpress plugin to use html5 markup with the thematic theme framework 
- * Version: 0.2
- * Author: Karin Taliga
+ * Version: 0.3
  * 
  * @package Thematic-HTML5
  */

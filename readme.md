@@ -42,6 +42,9 @@ The plugin is intentionally very bare bones, but there is always room for improv
 
 ## Changelog ##
 
+### 0.3 ###
+* Move plugin class to it's own file
+
 ### 0.2 ###
 * Plugin rewrite to use OOP
 
