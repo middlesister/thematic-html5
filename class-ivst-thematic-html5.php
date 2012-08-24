@@ -320,7 +320,7 @@ class Ivst_Thematic_Html5 {
 	 */
 	function before_widget_area($content) {
 		$content = str_replace( '<div', '<aside ', $content);
-		$content = str_replace( '<ul class="xoxo">', ' ', $content);
+		$content = str_replace( '<ul class="xoxo">', '<div class="inner">', $content);
 		return $content;
 	}
 
@@ -333,7 +333,7 @@ class Ivst_Thematic_Html5 {
 	 * @since 0.1
 	 */
 	function after_widget_area($content) {
-		$content = str_replace( '</ul>', ' ', $content);
+		$content = str_replace( '</ul>', '</div>', $content);
 		$content = str_replace( '</div>', '</aside>', $content);
 		return $content;
 	}
