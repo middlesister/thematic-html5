@@ -53,6 +53,9 @@ class Ivst_Thematic_Html5 {
 
 		// remove meta tag contenttype
 		add_filter( 'thematic_create_contenttype', array( &$this, 'remove_charset' ) );
+		
+		// enqueue html5shiv, if applicable
+		add_filter( 'wp_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
 
 		// filter the main menu to use the nav element
 		add_filter( 'thematic_nav_menu_args', array( &$this, 'navmenu_args' ) );
@@ -224,7 +227,7 @@ class Ivst_Thematic_Html5 {
 		$content .= "\n";
 		return $content;
 	}
-
+	
 
 	/**
 	 * Remove the now defunct meta tag <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -235,6 +238,37 @@ class Ivst_Thematic_Html5 {
 		$content = '';
 		return $content;
 	}
+	
+	/**
+	 * Enqueue html5shiv script for older IE
+	 * 
+	 * Themes or other plugins can turn this off using the filter "thematichtml5_use_html5shiv"
+	 * or supply their own script by filtering "thematichtml5_html5shiv_url"
+	 * 
+	 * @since 0.4
+	 */
+	function enqueue_scripts() {
+		global $is_IE; 
+		
+		$have_modernizr = false;
+		
+		// List of handles to look for. These scripts make the html5shiv unnecessary
+		$possible_handles = array(
+			'modernizr',
+			'modernizr-js'
+		);
+		
+		// Check if any other scripts has been enqueued
+		foreach( $possible_handles as $handle) {
+			if( wp_script_is( $handle, 'queue' ) )
+				$have_modernizr = true;
+		}
+		
+		// Enqueue the shiv when necessary
+		if( !$have_modernizr && $is_IE && apply_filters( 'thematichtml5_use_html5shiv', TRUE ) )
+			wp_enqueue_script( 'html5shiv', apply_filters( 'thematichtml5_html5shiv_url', plugins_url( 'thematic-html5/js/html5shiv-printshiv.js' ) ), array(), '3.6.2pre', false) ;
+	}
+	
 	
 	/**
 	 * Filter the opening tag of #header
