@@ -191,12 +191,18 @@ class Ivst_Thematic_Html5 {
 	 * @since 0.4 
 	 */
 	function create_doctype( $content ) {
-		$content = '<!doctype html>' . "\n";
-		$content .= '<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" dir="' . get_bloginfo ('text_direction') . '" lang="'. get_bloginfo ('language') . '"> <![endif]-->' . "\n";
-		$content .= '<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8" dir="' . get_bloginfo ('text_direction') . '" lang="'. get_bloginfo ('language') . '"> <![endif]-->'. "\n";
-		$content .= '<!--[if IE 8]> <html class="no-js lt-ie9" dir="' . get_bloginfo ('text_direction') . '" lang="'. get_bloginfo ('language') . '"> <![endif]-->' . "\n";
-		$content .= '<!--[if gt IE 8]><!-->' . "\n";
-		$content .= '<html class="no-js" dir="' . get_bloginfo ('text_direction') . '"';
+		if ( apply_filters( 'thematichtml5_use_ieconditionals', TRUE ) ) {
+			$content = '<!doctype html>' . "\n";
+			$content .= '<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" dir="' . get_bloginfo ('text_direction') . '" lang="'. get_bloginfo ('language') . '"> <![endif]-->' . "\n";
+			$content .= '<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8" dir="' . get_bloginfo ('text_direction') . '" lang="'. get_bloginfo ('language') . '"> <![endif]-->'. "\n";
+			$content .= '<!--[if IE 8]> <html class="no-js lt-ie9" dir="' . get_bloginfo ('text_direction') . '" lang="'. get_bloginfo ('language') . '"> <![endif]-->' . "\n";
+			$content .= '<!--[if gt IE 8]><!-->' . "\n";
+			$content .= '<html class="no-js" dir="' . get_bloginfo ('text_direction') . '"';
+		} else {
+			$content = '<!doctype html>';
+			$content .= "\n";
+			$content .= '<html';
+		}
 		return $content;
 	}
 
@@ -207,8 +213,12 @@ class Ivst_Thematic_Html5 {
 	 * @since 0.1 
 	 */
 	function head_profile( $content ) {
-		$content = '<!--<![endif]-->' . "\n";
-		$content .= '<head>';
+		if ( apply_filters( 'thematichtml5_use_ieconditionals', TRUE ) ) {
+			$content = '<!--<![endif]-->' . "\n";
+			$content .= '<head>';
+		} else {
+			$content = '<head>';
+		}
 		$content .= "\n";
 		$content .= '<meta charset="' . get_bloginfo( 'charset' ) . '">';
 		$content .= "\n";
