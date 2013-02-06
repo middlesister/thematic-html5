@@ -55,7 +55,7 @@ class Ivst_Thematic_Html5 {
 		add_filter( 'thematic_create_contenttype', array( &$this, 'remove_charset' ) );
 		
 		// enqueue html5shiv, if applicable
-		add_filter( 'wp_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
+		add_action( 'wp_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
 
 		// filter the main menu to use the nav element
 		add_filter( 'thematic_nav_menu_args', array( &$this, 'navmenu_args' ) );
