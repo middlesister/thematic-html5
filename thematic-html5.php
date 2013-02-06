@@ -14,6 +14,6 @@
 require( plugin_dir_path( __FILE__ ) . 'class-ivst-thematic-html5.php' );
 
 // launch plugin
-new Ivst_Thematic_Html5();
+$thematic_html5 = new Ivst_Thematic_Html5();
 
 ?>
