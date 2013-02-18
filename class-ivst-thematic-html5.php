@@ -261,7 +261,7 @@ class Ivst_Thematic_Html5 {
 	function enqueue_scripts() {
 		global $is_IE; 
 		
-		$have_modernizr = false;
+		$use_shiv = true;
 		
 		// List of handles to look for. These scripts make the html5shiv unnecessary
 		$possible_handles = array(
@@ -269,14 +269,20 @@ class Ivst_Thematic_Html5 {
 			'modernizr-js'
 		);
 		
+		// Allow themes to add their handles
+		$possible_handles = apply_filters( 'thematichtml5_modernizr_handles', $possible_handles );
+		
 		// Check if any other scripts has been enqueued
 		foreach( $possible_handles as $handle) {
 			if( wp_script_is( $handle, 'queue' ) )
-				$have_modernizr = true;
+				$use_shiv = false;
 		}
 		
+		// Allow themes/plugins to switch off the shiv
+		$use_shiv = apply_filters( 'thematichtml5_use_shiv', $use_shiv );
+		
 		// Enqueue the shiv when necessary
-		if( !$have_modernizr && $is_IE && apply_filters( 'thematichtml5_use_html5shiv', TRUE ) )
+		if( $use_shiv && $is_IE )
 			wp_enqueue_script( 'html5shiv', apply_filters( 'thematichtml5_html5shiv_url', plugins_url( 'thematic-html5/js/html5shiv-printshiv.js' ) ), array(), '3.6.2pre', false) ;
 	}
 	
