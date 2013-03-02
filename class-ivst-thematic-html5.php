@@ -53,6 +53,9 @@ class Ivst_Thematic_Html5 {
 
 		// remove meta tag contenttype
 		add_filter( 'thematic_create_contenttype', array( &$this, 'remove_charset' ) );
+		
+		// enqueue html5shiv, if applicable
+		add_action( 'wp_enqueue_scripts', array( &$this, 'enqueue_scripts' ) );
 
 		// filter the main menu to use the nav element
 		add_filter( 'thematic_nav_menu_args', array( &$this, 'navmenu_args' ) );
@@ -60,7 +63,7 @@ class Ivst_Thematic_Html5 {
 		// filter the fallback page menu to also use the nav element
 		add_filter( 'wp_page_menu', array( &$this, 'pagemenu' ) );
 
-		// filter the fallback page menu to also use the nav element
+		// filter post pagination to also use the nav element
 		add_filter( 'wp_link_pages_args', array( &$this, 'pagelinks' ) );
 
 
@@ -186,32 +189,59 @@ class Ivst_Thematic_Html5 {
 	/**
 	 * Create the html5 doctype instead of xhtml1.
 	 * 
-	 * @since 0.1 
+	 * Uses classes from html5boilerplate @link{http://html5boilerplate.com}
+	 * Conditional classes can be switched off by filtering <code>thematichtml5_use_ieconditionals</code>
+	 * Filters thematic_create_doctype
+	 * 
+	 * @since 0.4 
 	 */
 	function create_doctype( $content ) {
-		$content = '<!DOCTYPE html>';
-		$content .= "\n";
-		$content .= '<html';
+		// Check if we are using the conditional classes
+		if ( apply_filters( 'thematichtml5_use_ieconditionals', TRUE ) ) {
+			// Add the conditional classes
+			$content = '<!doctype html>' . "\n";
+			$content .= '<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" dir="' . get_bloginfo ('text_direction') . '" lang="'. get_bloginfo ('language') . '"> <![endif]-->' . "\n";
+			$content .= '<!--[if IE 7]> <html class="no-js lt-ie9 lt-ie8" dir="' . get_bloginfo ('text_direction') . '" lang="'. get_bloginfo ('language') . '"> <![endif]-->'. "\n";
+			$content .= '<!--[if IE 8]> <html class="no-js lt-ie9" dir="' . get_bloginfo ('text_direction') . '" lang="'. get_bloginfo ('language') . '"> <![endif]-->' . "\n";
+			$content .= '<!--[if gt IE 8]><!-->' . "\n";
+			$content .= '<html class="no-js" dir="' . get_bloginfo ('text_direction') . '"';
+		} else {
+			// Use plain doctype
+			$content = '<!doctype html>';
+			$content .= "\n";
+			$content .= '<html';
+		}
 		return $content;
 	}
 
 
 	/**
 	 * Remove the profile attribute from the head tag and add the meta tag charset
+	 * 
+	 * Adds a closing comment if conditional classes are used 
+	 * Filters thematic_head_profile
 	 *
 	 * @since 0.1 
 	 */
 	function head_profile( $content ) {
-		$content = '<head>';
+		if ( apply_filters( 'thematichtml5_use_ieconditionals', TRUE ) ) {
+			// Close the last conditional class if we use them
+			$content = '<!--<![endif]-->' . "\n";
+			$content .= '<head>';
+		} else {
+			$content = '<head>';
+		}
 		$content .= "\n";
 		$content .= '<meta charset="' . get_bloginfo( 'charset' ) . '">';
 		$content .= "\n";
 		return $content;
 	}
-
+	
 
 	/**
 	 * Remove the now defunct meta tag <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	 * 
+	 * Filters thematic_create_contenttype
 	 *
 	 * @since 0.1
 	 */
@@ -221,7 +251,46 @@ class Ivst_Thematic_Html5 {
 	}
 	
 	/**
+	 * Enqueue html5shiv script for older IE
+	 * 
+	 * Themes or other plugins can turn this off using the filter "thematichtml5_use_html5shiv"
+	 * or supply their own script by filtering "thematichtml5_html5shiv_url"
+	 * 
+	 * @since 0.4
+	 */
+	function enqueue_scripts() {
+		global $is_IE; 
+		
+		$use_shiv = true;
+		
+		// List of handles to look for. These scripts make the html5shiv unnecessary
+		$possible_handles = array(
+			'modernizr',
+			'modernizr-js'
+		);
+		
+		// Allow themes to add their handles
+		$possible_handles = apply_filters( 'thematichtml5_modernizr_handles', $possible_handles );
+		
+		// Check if any other scripts has been enqueued
+		foreach( $possible_handles as $handle) {
+			if( wp_script_is( $handle, 'queue' ) )
+				$use_shiv = false;
+		}
+		
+		// Allow themes/plugins to switch off the shiv
+		$use_shiv = apply_filters( 'thematichtml5_use_shiv', $use_shiv );
+		
+		// Enqueue the shiv when necessary
+		if( $use_shiv && $is_IE )
+			wp_enqueue_script( 'html5shiv', apply_filters( 'thematichtml5_html5shiv_url', plugins_url( 'thematic-html5/js/html5shiv-printshiv.js' ) ), array(), '3.6.2pre', false) ;
+	}
+	
+	
+	/**
 	 * Filter the opening tag of #header
+	 * 
+	 * Filters thematic_open_header
 	 *
 	 * @since 0.1
 	 **/
@@ -232,6 +301,8 @@ class Ivst_Thematic_Html5 {
 
 	/**
 	 * Filter the closing tag of #header
+	 * 
+	 * Filters thematic_close_header
 	 *
 	 * @since 0.1
 	 **/
@@ -243,6 +314,8 @@ class Ivst_Thematic_Html5 {
 
 	/**
 	 * Filter the main menu to use the nav element
+	 * 
+	 * Filters thematic_nav_menu_args
 	 *
 	 * @since 0.1
 	 **/
@@ -254,6 +327,8 @@ class Ivst_Thematic_Html5 {
 
 	/**
 	 * Filter the fallback page menu to use the nav element
+	 * 
+	 * Filters wp_page_menu
 	 *
 	 * @since 0.1
 	 **/
@@ -266,6 +341,8 @@ class Ivst_Thematic_Html5 {
 
 	/**
 	 * Filter the post pagination to use the nav element
+	 * 
+	 * Filters wp_link_pages_args
 	 *
 	 * @since 0.1
 	 **/
@@ -278,6 +355,8 @@ class Ivst_Thematic_Html5 {
 
 	/**
 	 * Filter the post header, wrapping title and post meta in header tags
+	 * 
+	 * Filters thematic_postheader if there is no childtheme_override
 	 *
 	 * @since 0.1
 	 **/
@@ -290,6 +369,8 @@ class Ivst_Thematic_Html5 {
 
 	/**
 	 * Filter the post header's post title
+	 * 
+	 * Filters thematic_postheader_posttitle if there is no childtheme_override
 	 *
 	 * @since 0.1
 	 **/
@@ -301,6 +382,8 @@ class Ivst_Thematic_Html5 {
 
 	/**
 	 * Filter the post footer
+	 * 
+	 * Filters thematic_postfooter if there is no childtheme_override
 	 *
 	 * @since 0.1
 	 **/
@@ -315,12 +398,13 @@ class Ivst_Thematic_Html5 {
 	 * Filter the opening tags of the widget areas
 	 * 
 	 * Replace the div with aside, remove the wrapping ul
+	 * Filters thematic_before_widget_area
 	 *
 	 * @since 0.1
 	 */
 	function before_widget_area($content) {
 		$content = str_replace( '<div', '<aside ', $content);
-		$content = str_replace( '<ul class="xoxo">', ' ', $content);
+		$content = str_replace( '<ul class="xoxo">', '<div class="inner">', $content);
 		return $content;
 	}
 
@@ -329,11 +413,12 @@ class Ivst_Thematic_Html5 {
 	 * Filter the closing tags of the widget areas
 	 * 
 	 * Remove the wrapping ul, replace the div with aside
+	 * Filters thematic_after_widget_area
 	 *
 	 * @since 0.1
 	 */
 	function after_widget_area($content) {
-		$content = str_replace( '</ul>', ' ', $content);
+		$content = str_replace( '</ul>', '</div>', $content);
 		$content = str_replace( '</div>', '</aside>', $content);
 		return $content;
 	}
@@ -341,6 +426,8 @@ class Ivst_Thematic_Html5 {
 
 	/**
 	 * Filter the opening tag of each widget to use section element
+	 * 
+	 * Filters thematic_before_widget
 	 *
 	 * @since 0.1
 	 **/
@@ -352,6 +439,8 @@ class Ivst_Thematic_Html5 {
 
 	/**
 	 * Filter the closing tag of each widget area to use section element
+	 * 
+	 * Filters thematic_after_widget
 	 *
 	 * @since 0.1
 	 **/
@@ -363,6 +452,8 @@ class Ivst_Thematic_Html5 {
 
 	/**
 	 * Filter the title of widget areas
+	 * 
+	 * Filters thematic_before_title
 	 *
 	 * @since 0.1
 	 **/
@@ -374,6 +465,8 @@ class Ivst_Thematic_Html5 {
 
 	/**
 	 * Filter the title of widget area
+	 * 
+	 * Filters thematic_after_title
 	 *
 	 * @since 0.1
 	 **/
@@ -579,6 +672,8 @@ class Ivst_Thematic_Html5 {
 	
 	/**
 	 * Filter the opening tag of #footer
+	 * 
+	 * Filters thematic_open_footer
 	 *
 	 * @since 0.1
 	 **/
@@ -589,6 +684,8 @@ class Ivst_Thematic_Html5 {
 
 	/**
 	 * Filter the closing tag of #footer
+	 * 
+	 * Filters thematic_close_footer
 	 *
 	 * @since 0.1
 	 **/
