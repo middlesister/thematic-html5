@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Thematic HTML5
- * Plugin URI: http://invistruct.com/thematic-html5
+ * Plugin URI: http://invistruct.com/wordpress-plugins/thematic-html5/
  * Plugin Author: middlesister
  * Author URI: http://invistruct.com
  * Description: A wordpress plugin to use html5 markup with the thematic theme framework 
