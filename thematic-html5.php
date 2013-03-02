@@ -1,11 +1,11 @@
 <?php
 /**
  * Plugin Name: Thematic HTML5
- * Plugin URI: http://github.com/middlesister/thematic-html5
+ * Plugin URI: http://invistruct.com/wordpress-plugins/thematic-html5/
  * Plugin Author: middlesister
- * Plugin URI: http://invistruct.com
+ * Author URI: http://invistruct.com
  * Description: A wordpress plugin to use html5 markup with the thematic theme framework 
- * Version: 0.3
+ * Version: 0.4
  * 
  * @package Thematic-HTML5
  */
