@@ -6,7 +6,7 @@
  * use html5 elements
  * 
  * @author Karin Taliga <invistruct@gmail.com>
- * @version 0.3
+ * @version 0.4.1
  * @package Thematic-HTML5
  */
 
