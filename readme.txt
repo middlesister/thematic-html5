@@ -44,6 +44,9 @@ The plugin is intentionally very bare bones, no settings or checkboxes, just act
 
 == Changelog ==
 
+= 0.4.1 =
+* Fixed: Correctly closing of the `</aside>` widget areas. Props: emhr
+
 = 0.4 =
 * Added: conditional comments classes to opening `<html>` tag
 * Added: html5shiv javascript for older IE

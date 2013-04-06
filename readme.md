@@ -44,10 +44,13 @@ The plugin is intentionally very bare bones, no settings or checkboxes, just act
 
 ## Changelog ##
 
+### 0.4.1 ###
+* Fixed: Correctly closing of the `</aside>` widget areas. Props: emhr
+
 ### 0.4 ###
 * Added: conditional comments classes to opening `<html>` tag
 * Added: html5shiv javascript for older IE
-* Changed: Added a structural .inner div to the widget areas for styling flexibility
+* Changed: Added a structural .inner div to the widget areas for styling flexibility. Props: scottnix
 * New filter: thematichtml5_use_html5shiv, defaults to true
 * New filter: thematichtml5_html5shiv_url
 * New filter: thematichtml5_use_ieconditionals, defaults to true
