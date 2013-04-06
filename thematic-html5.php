@@ -5,7 +5,7 @@
  * Plugin Author: middlesister
  * Author URI: http://invistruct.com
  * Description: A wordpress plugin to use html5 markup with the thematic theme framework 
- * Version: 0.4
+ * Version: 0.4.1
  * 
  * @package Thematic-HTML5
  */
